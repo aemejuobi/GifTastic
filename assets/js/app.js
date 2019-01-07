@@ -7,6 +7,7 @@ $(document).ready(function(){
     function populateButtons(){
         btn = $("<button>");
         
+        
         for(var i = 0; i < topics.length; i++){
             btn = $("<button>").text(topics[i]);
             btn.addClass("topicBtn");
@@ -17,18 +18,17 @@ $(document).ready(function(){
             btn.on("click", populateGifs);
         }
 
-        // $("#searchBtn").on("click", function(e){
-        //     e.preventDefault();
-        //     btn = $("<button>").text($("#carInput").val());
-        //     btn.addClass("topicBtn");
-        //     btn.attr("data-car", $("#carInput").val());
-        //     $("#carButtons").append(btn);
+        $("#searchBtn").on("click", function(e){
+            e.preventDefault();
+            var newCarInput = $("#carInput").val();
+            btn = $("<button>").text(newCarInput);
+            btn.addClass("topicBtn");
+            btn.attr("data-car", newCarInput + "-car");
+            $("#carButtons").append(btn);
 
-        //     topics.push($("#carInput").val());
-        //     console.log(topics);
-        //     console.log($("#carInput").val());
-            
-        // });
+            topics.push(newCarInput);
+            console.log(newCarInput);
+        });
 
     }
     populateButtons();
@@ -48,18 +48,24 @@ $(document).ready(function(){
             console.log(response);
             
             
+
             for(var j = 0; j < 10; j++){
-                var carGif = $("<img>");
+                var imgBox = $("<div>");
+                imgBox.addClass("imageBox");
                 var rating = $("<p>");
-                rating.text(response.data[j].rating);
+                rating.text("Rated: " + response.data[j].rating);
+                var carGif = $("<img>");
+
                 carGif.attr("src", response.data[j].images.fixed_height_still.url);
                 carGif.attr("id", "image" + j);
                 carGif.attr("data-state", "still");
                 // carGif.attr("data-still-url", response.data[j].images.fixed_height_still.url);
                 // carGif.attr("data-animate-url", response.data[j].images.fixed_height.url);
-                // carGif.addClass('gif');
-                $("#cars").append(rating);
-                $("#cars").append(carGif);
+                carGif.addClass('gif');
+
+                imgBox.append(rating);
+                imgBox.append(carGif);
+                $("#cars").append(imgBox);
             }
 
             
@@ -70,10 +76,10 @@ $(document).ready(function(){
                 //     var state = $(this).attr("data-state");
                     
                 //     if(state === "still"){
-                //         elementClicked.attr("src", data-animate-url);
+                //         elementClicked.attr("src", response.data[0].images.fixed_height.url);
                 //         elementClicked.attr("data-state", "animate");
                 //     }else if(state === "animate"){
-                //         elementClicked.attr("src", data-still-url);
+                //         elementClicked.attr("src", response.data[0].images.fixed_height_still.url);
                 //         elementClicked.attr("data-state", "still");
                 //     }
                 // });
