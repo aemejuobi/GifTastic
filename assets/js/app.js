@@ -15,7 +15,7 @@ $(document).ready(function(){
             
             
 
-            for(var j = 0; j < 10; j++){
+            for(var j = 0; j < 20; j++){
                 var imgBox = $("<div>");
                 var rating = $("<p>");
                 var carGif = $("<img>");
